@@ -52,7 +52,12 @@ else:
     st.image(image, use_column_width=True)
     output = import_and_predict(image, model)
     st.success(output)
-
+    
+# Clear Button
+if st.button("Clear"):
+    file = None
+    st.text("Please upload an image file")
+    
 # Adding a sidebar
 st.sidebar.title("Options")
 selected_option = st.sidebar.selectbox("Select an option", ("About", "Help"))
