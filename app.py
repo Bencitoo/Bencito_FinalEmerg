@@ -55,7 +55,7 @@ else:
     
 # Clear Button
 if st.button("Clear"):
-    file = None
+    file_placeholder.empty()
     st.text("Please upload an image file")
     
 # Adding a sidebar
