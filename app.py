@@ -1,25 +1,42 @@
-import tensorflow as tf
-import numpy as np
 import streamlit as st
+import tensorflow as tf
+from PIL import Image
+import numpy as np
 
-# Load the best model
-best_model = tf.keras.models.load_model('/content/drive/MyDrive/Colab/mnist/best_model_final.h5')
+@st.cache(allow_output_mutation=True)
+def load_model():
+    model = tf.keras.models.load_model('best_model_final.h5')
+    return model
 
-# Streamlit code to showcase the best model
-st.title("Fashion MNIST Classifier")
-image_file = st.file_uploader("/content/drive/MyDrive/Colab/mnist/tshirt1.jpeg", type=["png", "jpg"])
+model = load_model()
 
-if image_file is not None:
-    # Read the uploaded image
-    image = tf.keras.preprocessing.image.load_img(image_file, target_size=(28, 28), color_mode='grayscale')
-    input_array = tf.keras.preprocessing.image.img_to_array(image)
-    input_array = input_array / 255.0
-    input_array = np.expand_dims(input_array, 0)
-    
-    # Classify the image using the best model
-    prediction = best_model.predict(input_array)
+st.write("# MNIST Checker by Bencito")
+
+file = st.file_uploader("Choose an image from the Fashion MNIST dataset", type=["jpg", "png"])
+
+def import_and_predict(image_data, model):
+    # Preprocess the image
+    image = image_data.convert('L')
+    image = image.resize((28, 28))
+    image = np.array(image)
+    image = image / 255.0
+    image = np.expand_dims(image, axis=0)
+
+    # Make predictions
+    prediction = model.predict(image)
+    class_names = [
+        'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+        'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'
+    ]
     predicted_class = np.argmax(prediction)
-    
-    # Display the predicted class
-    st.image(image, caption=f"Predicted Class: {predicted_class}", width=200)
+    output = f"Prediction: {class_names[predicted_class]}"
+    return output
+
+if file is None:
+    st.text("Please upload an image file")
+else:
+    image = Image.open(file)
+    st.image(image, use_column_width=True)
+    output = import_and_predict(image, model)
+    st.success(output)
 
