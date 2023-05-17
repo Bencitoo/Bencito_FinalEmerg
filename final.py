@@ -2,18 +2,13 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image
 import numpy as np
+import requests
+from io import BytesIO
 
-# Clone the GitHub repository
-repo_url = "https://github.com/Bencitoo/Bencito_FinalEmerg.git"
-repo_dir = "Bencito_FinalEmerg"
-subprocess.run(["git", "clone", repo_url, repo_dir])
-
-# Load your own image
-your_face_image_path = f"{repo_dir}/image.jpeg.jpg"
-your_face_image = Image.open(your_face_image_path)
-
-# Rest of your code...
-
+# Download your face image from GitHub
+your_face_image_url = "https://raw.githubusercontent.com/Bencitoo/Bencito_FinalEmerg/main/image.jpeg.jpg"
+response = requests.get(your_face_image_url)
+your_face_image = Image.open(BytesIO(response.content))
 
 @st.cache(allow_output_mutation=True)
 def load_model():
