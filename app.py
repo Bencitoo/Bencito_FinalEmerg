@@ -59,8 +59,8 @@ if st.button("Clear"):
     st.text("Please upload an image file")
     
 # Adding a sidebar
-st.sidebar.title("Options")
-selected_option = st.sidebar.selectbox("Select an option", ("About", "Help", "Visualization", "Conclusion"))
+st.sidebar.title("Menu")
+selected_option = st.sidebar.selectbox("Select", ("About", "Help", "Visualization", "Conclusion"))
 
 if selected_option == "About":
     st.sidebar.write("This Final application was created by:")
