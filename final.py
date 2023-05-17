@@ -3,6 +3,9 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 
+# Load your own image
+your_face_image = Image.open("image.jpeg.jpg")
+
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = tf.keras.models.load_model('best_model_final.h5')
@@ -24,7 +27,7 @@ st.markdown(
 
 st.write("# MNIST Checker by Bencito")
 
-file = st.file_uploader("Choose an image from the Fashion MNIST dataset", type=["jpg", "png"])
+file = st.file_uploader("Choose an image", type=["jpg", "png"])
 
 def import_and_predict(image_data, model):
     # Preprocess the image
@@ -59,6 +62,10 @@ if st.button("Clear"):
 
 # Adding a sidebar
 st.sidebar.title("Options")
+
+# Add your face as a logo in the sidebar
+st.sidebar.image(your_face_image, width=150)
+
 selected_option = st.sidebar.selectbox("Select an option", ("About", "Help", "Visualization", "Conclusion"))
 
 if selected_option == "About":
@@ -68,7 +75,7 @@ if selected_option == "About":
     st.sidebar.write("- Instructor: Dr. Jonathan Taylar")
 
 elif selected_option == "Help":
-    st.sidebar.write("Upload an image from the Fashion MNIST dataset and click 'Predict' to see the predicted category.")
+    st.sidebar.write("Upload an image and click 'Predict' to see the predicted category.")
 
 elif selected_option == "Visualization":
     st.sidebar.write("Visualize the uploaded image")
