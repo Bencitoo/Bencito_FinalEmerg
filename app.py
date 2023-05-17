@@ -77,6 +77,3 @@ elif selected_option == "Visualization":
         st.sidebar.subheader("Uploaded Image")
         st.sidebar.image(image)
 
-st.sidebar.write("---")
-st.sidebar.write("Additional sidebar content")
-
