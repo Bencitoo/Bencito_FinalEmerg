@@ -53,18 +53,6 @@ else:
     output = import_and_predict(image, model)
     st.success(output)
 
-# Adding buttons
-if st.button('Predict Another Image'):
-    st.text("")
-    file = st.file_uploader("Choose an image from the Fashion MNIST dataset", type=["jpg", "png"])
-    if file is None:
-        st.text("Please upload an image file")
-    else:
-        image = Image.open(file)
-        st.image(image, use_column_width=True)
-        output = import_and_predict(image, model)
-        st.success(output)
-
 # Adding a sidebar
 st.sidebar.title("Options")
 selected_option = st.sidebar.selectbox("Select an option", ("About", "Help"))
