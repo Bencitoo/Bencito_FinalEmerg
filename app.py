@@ -10,19 +10,6 @@ def load_model():
 
 model = load_model()
 
-# Set wallpaper
-st.markdown(
-    """
-    <style>
-    .reportview-container {
-        background: url('https://w0.peakpx.com/wallpaper/344/679/HD-wallpaper-gojousatoru-anime-gojou-satoru-jujutsu-kaisen.jpg') no-repeat center center fixed;
-        background-size: cover;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 st.write("# MNIST Checker by Bencito")
 
 file = st.file_uploader("Choose an image from the Fashion MNIST dataset", type=["jpg", "png"])
@@ -52,7 +39,7 @@ st.sidebar.title("Options")
 selected_option = st.sidebar.selectbox("Select an option", ("About", "Help"))
 
 if selected_option == "About":
-    st.sidebar.write("This app uses a trained model to predict the category of an image from the Fashion MNIST dataset.")
+    st.sidebar.write("This app was created by Bencito, Sonny Jay CPE32S4.")
 
 elif selected_option == "Help":
     st.sidebar.write("Upload an image from the Fashion MNIST dataset and click 'Predict' to see the predicted category.")
