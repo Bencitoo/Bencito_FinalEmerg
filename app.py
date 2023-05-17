@@ -14,22 +14,9 @@ model = load_model()
 st.markdown(
     """
     <style>
-    .reportview-container {
+    body {
         background: url('https://w0.peakpx.com/wallpaper/344/679/HD-wallpaper-gojousatoru-anime-gojou-satoru-jujutsu-kaisen.jpg') no-repeat center center fixed;
         background-size: cover;
-    }
-    .title {
-        font-size: 40px;
-        color: #FFFFFF;
-        text-align: center;
-        padding: 20px;
-    }
-    .sidebar {
-        background-color: #EFEFEF;
-        padding: 20px;
-    }
-    .main-content {
-        padding: 20px;
     }
     </style>
     """,
