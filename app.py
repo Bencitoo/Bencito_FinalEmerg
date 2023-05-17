@@ -65,8 +65,8 @@ selected_option = st.sidebar.selectbox("Select an option", ("About", "Help", "Vi
 if selected_option == "About":
     st.sidebar.write("This Final application was created by:")
     st.sidebar.write("- Name: Bencito, Sonny Jay")
-    st.sidebar.write("  Section and Grade: CPE32S4")
-    st.sidebar.write("  Instructor: Dr. Jonathan Taylar")
+    st.sidebar.write("- Section and Grade: CPE32S4")
+    st.sidebar.write("- Instructor: Dr. Jonathan Taylar")
 
 elif selected_option == "Help":
     st.sidebar.write("Upload an image from the Fashion MNIST dataset and click 'Predict' to see the predicted category.")
