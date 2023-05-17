@@ -60,11 +60,20 @@ if st.button("Clear"):
     
 # Adding a sidebar
 st.sidebar.title("Options")
-selected_option = st.sidebar.selectbox("Select an option", ("About", "Help"))
+selected_option = st.sidebar.selectbox("Select an option", ("About", "Help", "Visualization"))
 
 if selected_option == "About":
     st.sidebar.write("This app was created by Bencito, Sonny Jay CPE32S4.")
 
 elif selected_option == "Help":
     st.sidebar.write("Upload an image from the Fashion MNIST dataset and click 'Predict' to see the predicted category.")
+
+elif selected_option == "Visualization":
+    st.sidebar.write("Visualize the uploaded image")
+    if file is not None:
+        st.sidebar.subheader("Uploaded Image")
+        st.sidebar.image(image)
+
+st.sidebar.write("---")
+st.sidebar.write("Additional sidebar content")
 
