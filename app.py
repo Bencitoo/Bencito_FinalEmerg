@@ -60,7 +60,7 @@ if st.button("Clear"):
     
 # Adding a sidebar
 st.sidebar.title("Options")
-selected_option = st.sidebar.selectbox("Select an option", ("About", "Help", "Visualization"))
+selected_option = st.sidebar.selectbox("Select an option", ("About", "Help", "Visualization", "Conclusion"))
 
 if selected_option == "About":
     st.sidebar.write("This Final application was created by:")
@@ -76,4 +76,7 @@ elif selected_option == "Visualization":
     if file is not None:
         st.sidebar.subheader("Uploaded Image")
         st.sidebar.image(image)
+
+elif selected_option == "Conclusion":
+    st.sidebar.write("Thank you for using this application. We hope it has been useful to you.")
 
