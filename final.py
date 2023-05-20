@@ -30,20 +30,9 @@ model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
     verbose=1
 )
 
-# Define data augmentation
-data_augmentation = tf.keras.preprocessing.image.ImageDataGenerator(
-    rotation_range=10,
-    zoom_range=0.1,
-    width_shift_range=0.1,
-    height_shift_range=0.1,
-    horizontal_flip=True
-)
-
-# Train the model with data augmentation
-model.fit(data_augmentation.flow(x_train, y_train, batch_size=128),
-          steps_per_epoch=len(x_train) // 128,
-          validation_data=(x_test, y_test),
-          epochs=30, callbacks=[model_checkpoint])
+# Train the model
+model.fit(x_train, y_train, validation_data=(x_test, y_test),
+          epochs=30, batch_size=128, callbacks=[model_checkpoint])
 
 # Load the best model
 best_model = tf.keras.models.load_model('/content/drive/MyDrive/Colab/mnist/model_final.h5')
