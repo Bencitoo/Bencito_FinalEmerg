@@ -5,7 +5,7 @@ import numpy as np
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('model_final.h5')
+    model = tf.keras.models.load_model('model_finals.h5')
     return model
 
 model = load_model()
