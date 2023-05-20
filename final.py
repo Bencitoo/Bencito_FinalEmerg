@@ -1,55 +1,81 @@
-import tensorflow as tf
-import numpy as np
 import streamlit as st
+import tensorflow as tf
+from PIL import Image
+import numpy as np
 
-# Load the Fashion MNIST dataset
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
+@st.cache(allow_output_mutation=True)
+def load_model():
+    model = tf.keras.models.load_model('model_final.h5')
+    return model
 
-# Preprocess the data
-x_train = x_train.astype('float32') / 255.0
-x_test = x_test.astype('float32') / 255.0
+model = load_model()
 
-# Define the model architecture
-model = tf.keras.Sequential([
-    tf.keras.layers.Flatten(input_shape=(28, 28)),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(10, activation='softmax')
-])
-
-# Compile the model
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-
-# Define a callback to save the best model based on validation accuracy
-model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
-    '/content/drive/MyDrive/Colab/mnist/model_final.h5',
-    monitor='val_accuracy',
-    save_best_only=True,
-    mode='max',
-    verbose=1
+# Set wallpaper
+st.markdown(
+    """
+    <style>
+    body {
+        background: url('https://w0.peakpx.com/wallpaper/344/679/HD-wallpaper-gojousatoru-anime-gojou-satoru-jujutsu-kaisen.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
-# Train the model
-model.fit(x_train, y_train, validation_data=(x_test, y_test),
-          epochs=30, batch_size=128, callbacks=[model_checkpoint])
+st.write("# MNIST Checker by Bencito")
 
-# Load the best model
-best_model = tf.keras.models.load_model('/content/drive/MyDrive/Colab/mnist/model_final.h5')
+file = st.file_uploader("Choose an image from the Fashion MNIST dataset", type=["jpg", "png"])
 
-# Streamlit code to showcase the best model
-st.title("Fashion MNIST Classifier")
-image_file = st.file_uploader("/content/drive/MyDrive/Colab/mnist/tshirt1.jpeg", type=["png", "jpg"])
+def import_and_predict(image_data, model):
+    # Preprocess the image
+    image = image_data.convert('L')
+    image = image.resize((28, 28))
+    image = np.array(image)
+    image = image / 255.0
+    image = np.expand_dims(image, axis=0)
 
-if image_file is not None:
-    # Read the uploaded image
-    image = tf.keras.preprocessing.image.load_img(image_file, target_size=(28, 28), color_mode='grayscale')
-    input_array = tf.keras.preprocessing.image.img_to_array(image)
-    input_array = tf.expand_dims(input_array, 0) / 255.0
-    
-    # Classify the image using the best model
-    prediction = best_model.predict(input_array)
+    # Make predictions
+    prediction = model.predict(image)
+    class_names = [
+        'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+        'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'
+    ]
     predicted_class = np.argmax(prediction)
+    output = f"Prediction: {class_names[predicted_class]}"
+    return output
+
+if file is None:
+    st.text("Please upload an image file")
+else:
+    image = Image.open(file)
+    st.image(image, use_column_width=True)
+    output = import_and_predict(image, model)
+    st.success(output)
     
-    # Display the predicted class
-    st.image(image, caption=f"Predicted Class: {predicted_class}", width=200)
+# Clear Button
+if st.button("Clear"):
+    file = None
+    st.text("Please upload an image file")
+    
+# Adding a sidebar
+st.sidebar.title("Menu")
+selected_option = st.sidebar.selectbox("Select", ("About", "Help", "Visualization", "Conclusion"))
+
+if selected_option == "About":
+    st.sidebar.write("This Final application was created by:")
+    st.sidebar.write("- Name: Bencito, Sonny Jay")
+    st.sidebar.write("- Section and Grade: CPE32S4")
+    st.sidebar.write("- Instructor: Dr. Jonathan Taylar")
+
+elif selected_option == "Help":
+    st.sidebar.write("Upload an image from the Fashion MNIST dataset and click 'Predict' to see the predicted category.")
+
+elif selected_option == "Visualization":
+    st.sidebar.write("Visualize the uploaded image")
+    if file is not None:
+        st.sidebar.subheader("Uploaded Image")
+        st.sidebar.image(image)
+
+elif selected_option == "Conclusion":
+    st.sidebar.write("Thank you for using this application. We hope it has been useful to you.")
