@@ -10,19 +10,6 @@ def load_model():
 
 model = load_model()
 
-# Set wallpaper
-st.markdown(
-    """
-    <style>
-    body {
-        background: url('https://w0.peakpx.com/wallpaper/344/679/HD-wallpaper-gojousatoru-anime-gojou-satoru-jujutsu-kaisen.jpg') no-repeat center center fixed;
-        background-size: cover;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 st.title("Final Exam: Model Deployment in the Cloud")
 st.write("# MNIST Fashion Checker by Bencito")
 
