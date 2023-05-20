@@ -24,7 +24,7 @@ st.markdown(
 )
 
 st.title("Final Exam: Model Deployment in the Cloud")
-st.write("# MNIST Checker by Bencito")
+st.write("# MNIST Fashion Checker by Bencito")
 
 file = st.file_uploader("Choose an image from the Fashion MNIST dataset", type=["jpg", "png"])
 
