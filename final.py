@@ -23,6 +23,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.title("Final Exam: Model Deployment in the Cloud")
 st.write("# MNIST Checker by Bencito")
 
 file = st.file_uploader("Choose an image from the Fashion MNIST dataset", type=["jpg", "png"])
