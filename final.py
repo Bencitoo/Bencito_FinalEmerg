@@ -79,4 +79,4 @@ elif selected_option == "Visualization":
         st.sidebar.image(image)
 
 elif selected_option == "Conclusion":
-    st.sidebar.write("Thank you for using this application. We hope it has been useful to you.")
+    st.sidebar.write("As you can see in this activity I upload any image that classified on the MNIST fashion dataset and it was accurate but sometimes the dataset is imbalance on one classification for example when i'm adding a picture of tshirt the prediction will be bag because of the image imbalance. But when i upgrade it and add an image from exact dataset it was successfully read accurate.")
